@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: ${image}
+    ### start automatically
+    restart: always
+    environment:
+      - POSTGRES_USER=${defaultUser}
+      - POSTGRES_PASSWORD=${defaultPassword}
+      - PGDATA=/data/postgres
+    ports:
+      ## default port can be changed by .env
+      - "${defaultPort}:5432"
+    volumes:
+      - type: bind
+        source: ${dataFolder}
+        target: /data/postgres
